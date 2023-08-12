@@ -1,0 +1,58 @@
+<h2> Question </h2>
+<br/>
+<table class="table table-bordered border-primary">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Topic</th>
+      <th>Asked By User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @question&.title %></td>
+      <td><%= @question&.description %></td>
+      <td><%= @question&.topic&.title %></td>
+      <td><%= @question&.user&.email %></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-bordered border-primary">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Answer</th>
+      <th>Answered By User</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% if @question_answers.present? %>
+        <% @question_answers.each_with_index do |question_answer, index| %>
+          <tr>
+            <td><%= index + 1 %>
+            <td><%= question_answer&.answer_text %></td>
+            <td><%= question_answer&.user.email %></td>
+            <td><%= question_answer.created_at.strftime("%d-%m-%y %H:%M") %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<%= form_with model: Answer.new do |f| %>
+  <div class="mb-3 row">
+    <%= f.label :answer_text, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-5">
+      <%= f.text_area :answer_text, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :question_id, value: @question.id if @question.present? %> 
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

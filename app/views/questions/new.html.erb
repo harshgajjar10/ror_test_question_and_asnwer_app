@@ -1,0 +1,37 @@
+<h2> Add Question </h2>
+<br/><br/>
+<%= form_for @question do |f| %>
+  <% if @question.errors.any? %>
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(@question.errors.count, "error") %>.
+      <ul>
+        <% @question.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3 row">
+    <%= f.label :topic_id, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-5">
+      <%= f.select :topic_id, Topic.pluck(:title, :id), {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <%= f.label :title, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <%= f.label :description, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-5">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

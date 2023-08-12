@@ -1,0 +1,24 @@
+<h2>My Answer </h2>
+<br/>
+<table class="table table-bordered border-primary">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Answer Text</th>
+      <th>Question</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @answers.present? %>
+      <% @answers.each_with_index do |answer, index| %>
+        <tr>
+          <td><%= index + 1 %>
+          <td><%= answer&.answer_text %></td>
+          <td><%= answer.question&.title %></td>
+          <td><%= link_to "Go To Question", question_path(answer.question.id), class: 'btn btn-primary' %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,28 @@
+<h2>Users </h2>
+<br/>
+<table class="table table-bordered border-primary">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @users.present? %>
+      <% @users.each_with_index do |user, index| %>
+        <tr>
+          <td><%= index + 1 %>
+          <td><%= user&.email %></td>
+          <td>
+            <% unless current_user.following_user_ids.include?(user.id) %>
+              <%= link_to "Follow", following_user_users_path(following_user_id: user.id), class: "btn btn-success" %>
+            <% else %>
+              Followed
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

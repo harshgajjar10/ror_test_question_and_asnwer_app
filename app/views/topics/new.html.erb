@@ -1,0 +1,30 @@
+<h2> Add Topic </h2>
+<br/><br/>
+<%= form_for @topic do |f| %>
+  <% if @topic.errors.any? %>
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(@topic.errors.count, "error") %>.
+      <ul>
+        <% @topic.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3 row">
+    <%= f.label :title, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <%= f.label :description, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-5">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
